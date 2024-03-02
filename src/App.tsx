@@ -108,7 +108,6 @@ function App() {
                                 <Route path="/search" element={<SearchPage usersData={usersData} />} />
                                 <Route path="/library" element={<LibraryPage usersData={usersData} />} />
                                 <Route path="/liked-songs" element={<LikedSongsPage usersData={usersData} />} />
-                                {/* <Route path="/login" element={<Login />} /> */}
                             </Routes>
                         </Content>
                         <Footer style={{ background: '#181818', zIndex: 100 }}>

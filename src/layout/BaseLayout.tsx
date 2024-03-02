@@ -21,7 +21,7 @@ const items: MenuProps['items'] = [
     },
 ]
 
-const BaseLayout = ({ component, usersData }: { component: ReactElement, usersData: IUser }) => {
+const BaseLayout = ({ component, usersData }: { component: ReactElement, usersData: IUser | null }) => {
     return (
         <div>
             <header className="header">
@@ -52,7 +52,7 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
                             src="https://images.unsplash.com/photo-1609866975749-2238afebfa27?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt=""
                         />
-                        <span>{usersData.display_name}</span>
+                        {usersData && <span>{usersData.display_name}</span>}
                         <DownOutlined />
                     </div>
                 </Dropdown>

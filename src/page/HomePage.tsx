@@ -3,7 +3,7 @@ import BaseLayout from "../layout/BaseLayout"
 import { IUser } from "../types/Users"
 
 
-const HomePage = ({ usersData }: {usersData: IUser}) => {
+const HomePage = ({ usersData }: {usersData: IUser | null}) => {
   return <BaseLayout usersData={usersData} component={<Home />} />
 }
 
