@@ -10,6 +10,7 @@ import HomePage from './page/HomePage'
 import LibraryPage from './page/LibraryPage'
 import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
+import Login from './page/Login'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
@@ -30,6 +31,7 @@ interface IMainLink {
 }
 
 function App() {
+    const [token, setToken] = React.useState('');
     const mainLinks: IMainLink[] = [
         {
             url: '/',
@@ -48,9 +50,18 @@ function App() {
         },
     ]
 
+    React.useEffect(() => {
+        const hash = window.location.hash;
+        const _token = hash.split('&')[0].split('=')[1];
+        localStorage.setItem('token', _token);
+        setToken(_token);
+        console.log(token);
+    }, [])
+
     return (
         <>
-            <Layout style={{ height: '100vh' }}>
+            <Login />
+            {false ?? <Layout style={{ height: '100vh' }}>
                 <Sider style={contentStyle} width="15%" className="sidebar">
                     <div className="sidebar-nav">
                         {mainLinks.map(link => (
@@ -80,6 +91,7 @@ function App() {
                             <Route path="/search" element={<SearchPage />} />
                             <Route path="/library" element={<LibraryPage />} />
                             <Route path="/liked-songs" element={<LikedSongsPage />} />
+                            {/* <Route path="/login" element={<Login />} /> */}
                         </Routes>
                     </Content>
                     <Footer style={{ background: '#181818', zIndex: 100 }}>
@@ -200,7 +212,7 @@ function App() {
                         </Flex>
                     </Footer>
                 </Layout>
-            </Layout>
+            </Layout>}
         </>
     )
 }
