@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import { Dropdown, MenuProps } from 'antd'
+import { IUser } from '../types/Users'
 
 const items: MenuProps['items'] = [
     {
@@ -20,7 +21,7 @@ const items: MenuProps['items'] = [
     },
 ]
 
-const BaseLayout = ({ component }: { component: ReactElement }) => {
+const BaseLayout = ({ component, usersData }: { component: ReactElement, usersData: IUser }) => {
     return (
         <div>
             <header className="header">
@@ -51,7 +52,7 @@ const BaseLayout = ({ component }: { component: ReactElement }) => {
                             src="https://images.unsplash.com/photo-1609866975749-2238afebfa27?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                             alt=""
                         />
-                        <span>davedirect3</span>
+                        <span>{usersData.display_name}</span>
                         <DownOutlined />
                     </div>
                 </Dropdown>
