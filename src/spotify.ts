@@ -1,9 +1,18 @@
-const authEndpoint: string = 'https://accounts.spotify.com/authorize?';
-const clientId: string = '91db97d380cf473e93313dae865c09ad';
-const redirectUri: string = 'http://localhost:5173/';
-const scopes: string[] = ["user-library-red", "playlist-read-private"];
+const authEndpoint: string = 'https://accounts.spotify.com/authorize?'
+const clientId: string = '91db97d380cf473e93313dae865c09ad'
+const redirectUri: string = 'http://localhost:5173'
+const scopes: string[] = [
+    'user-library-read',
+    'user-read-email',
+    'user-top-read',
+    'user-follow-read',
+    'playlist-read-private',
+    'user-read-currently-playing',
+]
 
-export const loginEndpoint: string = `${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`;
+export const loginEndpoint: string = `${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+    '%20'
+)}&response_type=token&show_dialog=true`
 
 // Client Secret = a126f4defd204f71bfe8fc03bacfe609
 // https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=7a8ffbf4abed4b51
@@ -41,4 +50,3 @@ export const loginEndpoint: string = `${authEndpoint}client_id=${clientId}&redir
 // React.useEffect(() => {
 //     getToken()
 // }, [])
-
