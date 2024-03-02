@@ -1,9 +1,10 @@
 import LikedSongs from "../components/screens/LikedSongs"
 import BaseLayout from "../layout/BaseLayout"
+import { IUser } from "../types/Users"
 
-const LikedSongsPage = () => {
+const LikedSongsPage = ({ usersData }: {usersData: IUser}) => {
   return (
-    <BaseLayout component={<LikedSongs />} />
+    <BaseLayout usersData={usersData} component={<LikedSongs />} />
   )
 }
 
