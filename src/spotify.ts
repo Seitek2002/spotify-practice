@@ -1,5 +1,5 @@
 const authEndpoint: string = 'https://accounts.spotify.com/authorize?'
-const clientId: string = '91db97d380cf473e93313dae865c09ad'
+const clientId: string = '6d0009556a874813ac78b21b5878b14e'
 const redirectUri: string = 'http://localhost:5173'
 const scopes: string[] = [
     'user-library-read',
