@@ -1,4 +1,4 @@
-import { ReactElement} from 'react'
+import { ReactElement, useEffect} from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import { Dropdown, MenuProps } from 'antd'
 import { IUser } from '../types/Users'
@@ -32,6 +32,9 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
             onClick: usersData ? () => logout() : undefined,
         },
     ];
+    useEffect(() => {
+        console.log(usersData?.images[0]?.url)
+    })
 
     return (
         <div>
@@ -60,7 +63,7 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
                 <Dropdown menu={{ items }} trigger={['click']}>
                     <div className="header__profile">
                         <img
-                            src="https://images.unsplash.com/photo-1609866975749-2238afebfa27?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src={usersData?.images[0]?.url ?? "https://images.unsplash.com/photo-1609866975749-2238afebfa27?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                             alt=""
                         />
                         {usersData && <span>{usersData.display_name}</span>}
