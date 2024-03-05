@@ -1,5 +1,5 @@
 const authEndpoint: string = 'https://accounts.spotify.com/authorize?'
-const clientId: string = '91db97d380cf473e93313dae865c09ad'
+const clientId: string = import.meta.env.VITE_CLIENT_ID
 const redirectUri: string = 'http://localhost:5173'
 const scopes: string[] = [
     'user-library-read',
