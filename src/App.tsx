@@ -11,6 +11,7 @@ import LibraryPage from './page/LibraryPage'
 import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
 import Login from './page/Login'
+import { IUser } from './types/Users'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
@@ -32,6 +33,7 @@ interface IMainLink {
 
 function App() {
     const [token, setToken] = React.useState('')
+    const [usersData, setUsersData] = React.useState<IUser | null>(null);
     const mainLinks: IMainLink[] = [
         {
             url: '/',
@@ -50,12 +52,24 @@ function App() {
         },
     ]
 
+    const getUsersData = async (accessToken: string) => {
+        const res = await fetch('https://api.spotify.com/v1/me', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+            },
+        })
+        const data: Awaited<IUser | null> = await res.json()
+        setUsersData(data)
+    }
+
     React.useEffect(() => {
         const hash = window.location.hash
         const _token = hash.split('&')[0].split('=')[1]
-        if(_token) {
+        if (_token) {
             localStorage.setItem('token', _token)
             setToken(_token)
+            getUsersData(_token)
         }
     }, [])
 
@@ -90,11 +104,10 @@ function App() {
                     <Layout>
                         <Content style={mainStyle}>
                             <Routes>
-                                <Route path="/" element={<HomePage />} />
-                                <Route path="/search" element={<SearchPage />} />
-                                <Route path="/library" element={<LibraryPage />} />
-                                <Route path="/liked-songs" element={<LikedSongsPage />} />
-                                {/* <Route path="/login" element={<Login />} /> */}
+                                <Route path="/" element={<HomePage usersData={usersData} />} />
+                                <Route path="/search" element={<SearchPage usersData={usersData} />} />
+                                <Route path="/library" element={<LibraryPage usersData={usersData} />} />
+                                <Route path="/liked-songs" element={<LikedSongsPage usersData={usersData} />} />
                             </Routes>
                         </Content>
                         <Footer style={{ background: '#181818', zIndex: 100 }}>

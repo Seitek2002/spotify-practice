@@ -1,9 +1,10 @@
 import Search from "../components/screens/Search"
 import BaseLayout from "../layout/BaseLayout"
+import { IUser } from "../types/Users"
 
-const SearchPage = () => {
+const SearchPage = ({ usersData }: {usersData: IUser | null}) => {
   return (
-    <BaseLayout component={<Search />} />
+    <BaseLayout usersData={usersData} component={<Search />} />
   )
 }
 
