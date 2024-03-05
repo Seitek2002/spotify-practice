@@ -34,6 +34,7 @@ interface IMainLink {
 function App() {
     const [token, setToken] = React.useState('')
     const [usersData, setUsersData] = React.useState<IUser | null>(null);
+    const [currentSong, setCurrentSong] = React.useState(null)
     const mainLinks: IMainLink[] = [
         {
             url: '/',
@@ -62,6 +63,16 @@ function App() {
         const data: Awaited<IUser | null> = await res.json()
         setUsersData(data)
     }
+    const getCurrentSong = async (accessToken: string) => {
+        const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+            },
+        })
+        const data = await res.json()
+        setCurrentSong(data)
+    }
 
     React.useEffect(() => {
         const hash = window.location.hash
@@ -70,6 +81,7 @@ function App() {
             localStorage.setItem('token', _token)
             setToken(_token)
             getUsersData(_token)
+            getCurrentSong(_token)
         }
     }, [])
 
@@ -89,11 +101,11 @@ function App() {
                             ))}
                         </div>
                         <div className="sidebar-info">
-                            <img src="/assets/img/current-img.jpg" alt="" />
+                            <img src={currentSong?.item?.album?.images[1]?.url ?? "/assets/img/current-img.jpg"} alt="" />
                             <Flex align="center" style={{ gap: '32px', padding: '28px 0 33px 18px' }}>
                                 <Flex vertical>
-                                    <Typography.Text className="song-name">Play It Safe</Typography.Text>
-                                    <Typography.Text className="song-author">Julia Wolf</Typography.Text>
+                                    <Typography.Text className="song-name">{currentSong?.item?.name ??'Play It Safe'}</Typography.Text>
+                                    <Typography.Text className="song-author">{currentSong?.item?.artists[0]?.name ?? 'ne igraet'}</Typography.Text>
                                 </Flex>
                                 <div>
                                     <HeartFilled style={{ color: '#63CF6C', fontSize: '24px' }} />
