@@ -1,5 +1,5 @@
 const authEndpoint: string = 'https://accounts.spotify.com/authorize?'
-const clientId: string = '6d0009556a874813ac78b21b5878b14e'
+const clientId: string = import.meta.env.VITE_CLIENT_ID
 const redirectUri: string = 'http://localhost:5173'
 const scopes: string[] = [
     'user-library-read',
@@ -8,6 +8,7 @@ const scopes: string[] = [
     'user-follow-read',
     'playlist-read-private',
     'user-read-currently-playing',
+    'user-read-playback-state'
 ]
 
 export const loginEndpoint: string = `${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
