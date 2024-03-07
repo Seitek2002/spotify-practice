@@ -73,7 +73,16 @@ function App() {
         })
         const data = await res.json()
         setCurrentSong(data)
-        console.log(data)
+    }
+    const getAvailableDevices = async (accessToken: string) => {
+        const res = await fetch('https://api.spotify.com/v1/me/player/devices', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+            },
+        })
+        const data = await res.json();
+        console.log(data);
     }
 
     React.useEffect(() => {
@@ -84,6 +93,7 @@ function App() {
             setToken(_token)
             getUsersData(_token)
             getCurrentSong(_token)
+            getAvailableDevices(_token)
         }
     }, [])
 
