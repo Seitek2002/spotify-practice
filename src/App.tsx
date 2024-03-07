@@ -73,6 +73,7 @@ function App() {
         })
         const data = await res.json()
         setCurrentSong(data)
+        console.log(data)
     }
 
     React.useEffect(() => {

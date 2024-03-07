@@ -33,7 +33,6 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
         },
     ];
 
-
     return (
         <div>
             <header className="header">
