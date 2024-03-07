@@ -82,7 +82,15 @@ function App() {
             },
         })
         const data = await res.json();
-        console.log(data);
+    }
+    const pausePlayback = async () => {
+         await fetch('https://api.spotify.com/v1/me/player/pause', {
+            method: "PUT",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+            body: 'device_id=98a1a5e62aa6fb56f615cba1e76eacc1cc1b6b7d'
+        })
     }
 
     React.useEffect(() => {
@@ -165,6 +173,7 @@ function App() {
                                             style={{ color: '#d1d1d1', fontSize: '32px', cursor: 'pointer' }}
                                         />
                                         <PlayCircleFilled
+                                            onClick={pausePlayback}
                                             style={{ color: '#fff', fontSize: '32px', cursor: 'pointer' }}
                                         />
                                         <StepForwardFilled
