@@ -12,6 +12,7 @@ import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
 import Login from './page/Login'
 import { IUser } from './types/Users'
+import { ICurrentlyPlaying } from './types/CurrentlyPlayingTrack'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
@@ -33,8 +34,8 @@ interface IMainLink {
 
 function App() {
     const [token, setToken] = React.useState('')
-    const [usersData, setUsersData] = React.useState<IUser | null>(null);
-    const [currentSong, setCurrentSong] = React.useState(null)
+    const [usersData, setUsersData] = React.useState<IUser | null>(null)
+    const [currentSong, setCurrentSong] = React.useState<ICurrentlyPlaying | null>(null)
     const mainLinks: IMainLink[] = [
         {
             url: '/',
@@ -94,24 +95,33 @@ function App() {
                     <Sider style={contentStyle} width="15%" className="sidebar">
                         <div className="sidebar-nav">
                             {mainLinks.map(link => (
-                                <Link to={link.url} className="sidebar-link">
+                                <Link to={link.url} key={link.url} className="sidebar-link">
                                     {link.icon}
                                     <Typography.Text>{link.text}</Typography.Text>
                                 </Link>
                             ))}
                         </div>
-                        <div className="sidebar-info">
-                            <img src={currentSong?.item?.album?.images[1]?.url ?? "/assets/img/current-img.jpg"} alt="" />
-                            <Flex align="center" style={{ gap: '32px', padding: '28px 0 33px 18px' }}>
-                                <Flex vertical>
-                                    <Typography.Text className="song-name">{currentSong?.item?.name ??'Play It Safe'}</Typography.Text>
-                                    <Typography.Text className="song-author">{currentSong?.item?.artists[0]?.name ?? 'ne igraet'}</Typography.Text>
+                        {currentSong && (
+                            <div className="sidebar-info">
+                                <img
+                                    src={currentSong.item.album.images[1].url ?? '/assets/img/current-img.jpg'}
+                                    alt=""
+                                />
+                                <Flex align="center" style={{ gap: '32px', padding: '28px 0 33px 18px' }}>
+                                    <Flex vertical>
+                                        <Typography.Text className="song-name">
+                                            {currentSong.item.name ?? 'Play It Safe'}
+                                        </Typography.Text>
+                                        <Typography.Text className="song-author">
+                                            {currentSong.item.artists[0].name ?? 'ne igraet'}
+                                        </Typography.Text>
+                                    </Flex>
+                                    <div>
+                                        <HeartFilled style={{ color: '#63CF6C', fontSize: '24px' }} />
+                                    </div>
                                 </Flex>
-                                <div>
-                                    <HeartFilled style={{ color: '#63CF6C', fontSize: '24px' }} />
-                                </div>
-                            </Flex>
-                        </div>
+                            </div>
+                        )}
                     </Sider>
                     <Layout>
                         <Content style={mainStyle}>

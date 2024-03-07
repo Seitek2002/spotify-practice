@@ -1,4 +1,4 @@
-import { ReactElement, useEffect} from 'react'
+import { ReactElement } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import { Dropdown, MenuProps } from 'antd'
 import { IUser } from '../types/Users'
@@ -32,9 +32,7 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
             onClick: usersData ? () => logout() : undefined,
         },
     ];
-    useEffect(() => {
-        console.log(usersData?.images[0]?.url)
-    })
+
 
     return (
         <div>
