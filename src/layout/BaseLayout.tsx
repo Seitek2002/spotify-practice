@@ -32,9 +32,6 @@ const BaseLayout = ({ component, usersData }: { component: ReactElement, usersDa
             onClick: usersData ? () => logout() : undefined,
         },
     ];
-    useEffect(() => {
-        console.log(usersData?.images[0]?.url)
-    })
 
     return (
         <div>
