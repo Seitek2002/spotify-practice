@@ -12,7 +12,7 @@ import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
 import Login from './page/Login'
 import { IUser } from './types/Users'
-import { ICurrentlyPlaying } from './types/CurrentlyPlayingTrack'
+import { SpotifyPlayerState } from './types/CurrentlyPlayingTrack'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
@@ -35,7 +35,7 @@ interface IMainLink {
 function App() {
     const [token, setToken] = React.useState('')
     const [usersData, setUsersData] = React.useState<IUser | null>(null)
-    const [currentSong, setCurrentSong] = React.useState<ICurrentlyPlaying | null>(null)
+    const [currentSong, setCurrentSong] = React.useState<SpotifyPlayerState | null>(null)
     const mainLinks: IMainLink[] = [
         {
             url: '/',
