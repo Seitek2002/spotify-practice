@@ -34,6 +34,7 @@ interface IMainLink {
 
 function App() {
     const [token, setToken] = React.useState('')
+    const [device, setDevice] = React.useState(null)
     const [usersData, setUsersData] = React.useState<IUser | null>(null)
     const [currentSong, setCurrentSong] = React.useState<SpotifyPlayerState | null>(null)
     const mainLinks: IMainLink[] = [
@@ -73,7 +74,33 @@ function App() {
         })
         const data = await res.json()
         setCurrentSong(data)
-        console.log(data)
+    }
+    const getAvailableDevices = async (accessToken: string) => {
+        const res = await fetch('https://api.spotify.com/v1/me/player/devices', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+            },
+        })
+        const data = await res.json();
+        setDevice(data)
+        console.log(device);
+    }
+    const pausePlayback = async () => {
+         await fetch('https://api.spotify.com/v1/me/player/pause', {
+            method: "PUT",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+        })
+    }
+    const playResumePlayback = async () => {
+        await fetch('https://api.spotify.com/v1/me/player/play', {
+            method: "PUT",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+        })
     }
 
     React.useEffect(() => {
@@ -84,6 +111,7 @@ function App() {
             setToken(_token)
             getUsersData(_token)
             getCurrentSong(_token)
+            getAvailableDevices(_token)
         }
     }, [])
 
@@ -152,9 +180,11 @@ function App() {
                                             />
                                         </svg>
                                         <StepBackwardFilled
+                                            onClick={playResumePlayback}
                                             style={{ color: '#d1d1d1', fontSize: '32px', cursor: 'pointer' }}
                                         />
                                         <PlayCircleFilled
+                                            onClick={pausePlayback}
                                             style={{ color: '#fff', fontSize: '32px', cursor: 'pointer' }}
                                         />
                                         <StepForwardFilled
