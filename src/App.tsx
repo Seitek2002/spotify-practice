@@ -34,6 +34,7 @@ interface IMainLink {
 
 function App() {
     const [token, setToken] = React.useState('')
+    const [device, setDevice] = React.useState(null)
     const [usersData, setUsersData] = React.useState<IUser | null>(null)
     const [currentSong, setCurrentSong] = React.useState<ICurrentlyPlaying | null>(null)
     const mainLinks: IMainLink[] = [
@@ -82,6 +83,8 @@ function App() {
             },
         })
         const data = await res.json();
+        setDevice(data)
+        console.log(device);
     }
     const pausePlayback = async () => {
          await fetch('https://api.spotify.com/v1/me/player/pause', {
@@ -89,7 +92,14 @@ function App() {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
             },
-            body: 'device_id=98a1a5e62aa6fb56f615cba1e76eacc1cc1b6b7d'
+        })
+    }
+    const playResumePlayback = async () => {
+        await fetch('https://api.spotify.com/v1/me/player/play', {
+            method: "PUT",
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
         })
     }
 
@@ -170,6 +180,7 @@ function App() {
                                             />
                                         </svg>
                                         <StepBackwardFilled
+                                            onClick={playResumePlayback}
                                             style={{ color: '#d1d1d1', fontSize: '32px', cursor: 'pointer' }}
                                         />
                                         <PlayCircleFilled
