@@ -102,7 +102,6 @@ function App() {
             setToken(_token)
             getUsersData(_token)
             getCurrentSong(_token)
-            getAvailableDevices(_token)
         }
     }, [])
 
