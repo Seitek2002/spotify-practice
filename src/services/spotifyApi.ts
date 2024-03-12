@@ -1,4 +1,5 @@
 import { SpotifyPlayerState } from '../types/CurrentlyPlayingTrack'
+import { ITopTracks } from '../types/TopTracks'
 import { IUser } from '../types/Users'
 
 export const getUsersData = async (accessToken: string) => {
@@ -9,7 +10,6 @@ export const getUsersData = async (accessToken: string) => {
         },
     })
     const data: Awaited<IUser | null> = await res.json()
-
     return data
 }
 
@@ -46,3 +46,16 @@ export const playResumePlayback = async () => {
         },
     })
 }
+
+export const getTopTracks = async (accessToken: string) => {
+    const res = await fetch('https://api.spotify.com/v1/me/top/tracks', {
+        method: "GET",
+        headers: {
+            Authorization: 'Bearer ' + accessToken,
+        },
+    })
+    const data: ITopTracks = await res.json()
+    console.log(data)
+    return data
+}
+
