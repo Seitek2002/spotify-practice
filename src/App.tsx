@@ -34,7 +34,6 @@ interface IMainLink {
 
 function App() {
     const [token, setToken] = React.useState('')
-    const [device, setDevice] = React.useState(null)
     const [usersData, setUsersData] = React.useState<IUser | null>(null)
     const [currentSong, setCurrentSong] = React.useState<SpotifyPlayerState | null>(null)
     const mainLinks: IMainLink[] = [
@@ -72,19 +71,11 @@ function App() {
                 Authorization: 'Bearer ' + accessToken,
             },
         })
-        const data = await res.json()
-        setCurrentSong(data)
-    }
-    const getAvailableDevices = async (accessToken: string) => {
-        const res = await fetch('https://api.spotify.com/v1/me/player/devices', {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + accessToken,
-            },
-        })
-        const data = await res.json();
-        setDevice(data)
-        console.log(device);
+
+        if(res.status === 200) {
+            const data = await res.json()
+            setCurrentSong(data)
+        }
     }
     const pausePlayback = async () => {
          await fetch('https://api.spotify.com/v1/me/player/pause', {
