@@ -11,8 +11,9 @@ import LibraryPage from './page/LibraryPage'
 import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
 import Login from './page/Login'
-import { IUser } from './types/Users'
 import { SpotifyPlayerState } from './types/CurrentlyPlayingTrack'
+import { getCurrentSong, getUsersData, pausePlayback, playResumePlayback } from "./services/spotifyApi"
+import { IUser } from './types/Users'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
@@ -54,55 +55,19 @@ function App() {
         },
     ]
 
-    const getUsersData = async (accessToken: string) => {
-        const res = await fetch('https://api.spotify.com/v1/me', {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + accessToken,
-            },
-        })
-        const data: Awaited<IUser | null> = await res.json()
-        setUsersData(data)
-    }
-    const getCurrentSong = async (accessToken: string) => {
-        const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + accessToken,
-            },
-        })
-
-        if(res.status === 200) {
-            const data = await res.json()
-            setCurrentSong(data)
-        }
-    }
-    const pausePlayback = async () => {
-         await fetch('https://api.spotify.com/v1/me/player/pause', {
-            method: "PUT",
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-            },
-        })
-    }
-    const playResumePlayback = async () => {
-        await fetch('https://api.spotify.com/v1/me/player/play', {
-            method: "PUT",
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-            },
-        })
-    }
-
-    React.useEffect(() => {
+    const getData = async () => {
         const hash = window.location.hash
         const _token = hash.split('&')[0].split('=')[1]
         if (_token) {
             localStorage.setItem('token', _token)
             setToken(_token)
-            getUsersData(_token)
-            getCurrentSong(_token)
+            setUsersData(await getUsersData(_token))
+            setCurrentSong(await getCurrentSong(_token))
         }
+    }
+
+    React.useEffect(() => {
+        getData()
     }, [])
 
     return (
