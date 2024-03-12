@@ -12,8 +12,9 @@ import LikedSongsPage from './page/LikedSongsPage'
 import SearchPage from './page/SearchPage'
 import Login from './page/Login'
 import { SpotifyPlayerState } from './types/CurrentlyPlayingTrack'
-import { getCurrentSong, getUsersData, pausePlayback, playResumePlayback } from "./services/spotifyApi"
+import { getCurrentSong, getTopTracks, getUsersData, pausePlayback, playResumePlayback } from "./services/spotifyApi"
 import { IUser } from './types/Users'
+import { ITopTracks } from './types/TopTracks'
 
 const contentStyle: React.CSSProperties = {
     background: '#000',
