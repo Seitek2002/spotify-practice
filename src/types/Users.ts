@@ -1,5 +1,5 @@
 export interface IUser {
-    country: string
+    country?: string
     display_name: string
     email: string
     explicit_content: {
