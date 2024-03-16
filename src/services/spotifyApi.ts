@@ -1,4 +1,5 @@
 import { SpotifyPlayerState } from '../types/CurrentlyPlayingTrack'
+import { IRecommendation } from '../types/Reccomandation'
 import { ITopTracks } from '../types/TopTracks'
 import { IUser } from '../types/Users'
 
@@ -55,7 +56,18 @@ export const getTopTracks = async (accessToken: string) => {
         },
     })
     const data: ITopTracks = await res.json()
-    console.log(data)
     return data
 }
+
+export const getRecommendations = async (accessToken: string) => {
+    const seedArtists = '4NHQUGzhtTLFvgF5SZesLK'; 
+    const res = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seedArtists}`, {
+        method: "GET",
+        headers: {
+            Authorization: 'Bearer ' + accessToken,
+        },
+    });
+    const data = await res.json();
+    return data;
+};
 

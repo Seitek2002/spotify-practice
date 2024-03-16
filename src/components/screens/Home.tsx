@@ -2,17 +2,20 @@ import { Card, Col, Flex, Row, Typography } from 'antd'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { ITopTracks } from '../../types/TopTracks'
-import { getTopTracks } from '../../services/spotifyApi'
+import { getRecommendations, getTopTracks } from '../../services/spotifyApi'
+import { IRecommendation } from '../../types/Reccomandation'
 
 const Home = () => {
 
     const [topTracks, setTopTracks] = React.useState<ITopTracks | null>(null)
+    const [recommendationTracks, setRecommendationTracks] = React.useState<IRecommendation | null>(null)
 
     const getData = async () => {
         const hash = window.location.hash
         const _token = hash.split('&')[0].split('=')[1]
         if (_token) {
             setTopTracks(await getTopTracks(_token))
+            setRecommendationTracks(await getRecommendations(_token))
         }
     }
 
@@ -126,46 +129,46 @@ const Home = () => {
             </Flex>
             <Flex vertical>
                 <Flex justify="space-between" align="center">
-                    <Typography.Title level={2} style={{ color: '#fff', fontWeight: '700' }}>Your top mixes</Typography.Title>
+                    <Typography.Title level={2} style={{ color: '#fff', fontWeight: '700' }}>Recommendations</Typography.Title>
                     <Link to="/" style={{ color: '#ADADAD', fontWeight: '700' }}>
                         SEE ALL
                     </Link>
                 </Flex>
                 <Flex justify="space-between">
                     <Card style={rowCards}>
-                        <img src="/assets/img/cards-img-example.png" alt="" />
+                        <img src={recommendationTracks?recommendationTracks.tracks[0].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
-                            Chill Mix
+                            {recommendationTracks?recommendationTracks.tracks[0].name:"Chill mixer"}
                         </Typography.Title>
                         <Typography.Text style={{ color: '#ADADAD' }}>
-                            Julia Wolf, Khalid, ayokay and more
+                            {recommendationTracks?recommendationTracks.tracks[0].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
                     <Card style={rowCards}>
-                        <img src="/assets/img/cards-img-example.png" alt="" />
+                        <img src={recommendationTracks?recommendationTracks.tracks[1].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
-                            Chill Mix
+                            {recommendationTracks?recommendationTracks.tracks[1].name:"Chill mixer"}
                         </Typography.Title>
                         <Typography.Text style={{ color: '#ADADAD' }}>
-                            Julia Wolf, Khalid, ayokay and more
+                            {recommendationTracks?recommendationTracks.tracks[1].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
                     <Card style={rowCards}>
-                        <img src="/assets/img/cards-img-example.png" alt="" />
+                        <img src={recommendationTracks?recommendationTracks.tracks[2].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
-                            Chill Mix
+                            {recommendationTracks?recommendationTracks.tracks[2].name:"Chill mixer"}
                         </Typography.Title>
                         <Typography.Text style={{ color: '#ADADAD' }}>
-                            Julia Wolf, Khalid, ayokay and more
+                            {recommendationTracks?recommendationTracks.tracks[2].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
                     <Card style={rowCards}>
-                        <img src="/assets/img/cards-img-example.png" alt="" />
+                        <img src={recommendationTracks?recommendationTracks.tracks[3].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
-                            Chill Mix
+                            {recommendationTracks?recommendationTracks.tracks[3].name:"Chill mixer"}
                         </Typography.Title>
                         <Typography.Text style={{ color: '#ADADAD' }}>
-                            Julia Wolf, Khalid, ayokay and more
+                            {recommendationTracks?recommendationTracks.tracks[3].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
                 </Flex>
