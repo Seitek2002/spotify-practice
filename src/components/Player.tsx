@@ -53,7 +53,12 @@ export default function Player({song}) {
     }, [ownTracks, song]);
 
     const playMusic = () => {
-        audioRef.current.play()
+        const audio = audioRef.current;
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
     }
 
     const musicPlaying = (value: number) => {
