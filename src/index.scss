@@ -204,3 +204,26 @@ a {
     }
   }
 }
+
+.main_player{
+  margin-right: 10px;
+  &_line{
+    position: relative;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.04);
+    height: 4px;
+    width: 520px;
+    
+    display: flex;
+    align-items: center;
+    &_circle{
+      position: absolute;
+      cursor: pointer;
+      width: 14px;
+      height: 14px;
+      border-radius: 100%;
+      background-color: white;
+      border: solid 2.2px #91caff;
+    }
+  }
+}

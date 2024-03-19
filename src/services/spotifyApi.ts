@@ -68,6 +68,7 @@ export const getRecommendations = async (accessToken: string) => {
         },
     });
     const data = await res.json();
+    
     return data;
 };
 
