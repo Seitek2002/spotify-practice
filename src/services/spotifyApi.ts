@@ -24,9 +24,8 @@ export const getCurrentSong = async (accessToken: string) => {
 
     if(res.status === 200) {
         const data: SpotifyPlayerState = await res.json()
-        return data
+        return data.item
     }
-
     return null
 }
 

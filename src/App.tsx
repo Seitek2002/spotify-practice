@@ -63,7 +63,9 @@ function App() {
             localStorage.setItem('token', _token)
             setToken(_token)
             setUsersData(await getUsersData(_token))
-            setCurrentSong(await getCurrentSong(_token))
+            if(await getCurrentSong(_token)){
+                setCurrentSong(await getCurrentSong(_token))
+            }
         }
     }
 
@@ -89,16 +91,16 @@ function App() {
                         {currentSong && (
                             <div className="sidebar-info">
                                 <img
-                                    src={currentSong.item.album.images[1].url ?? '/assets/img/current-img.jpg'}
+                                    src={currentSong.album.images[1].url ?? '/assets/img/current-img.jpg'}
                                     alt=""
                                 />
                                 <Flex align="center" style={{ gap: '32px', padding: '28px 0 33px 18px' }}>
                                     <Flex vertical>
                                         <Typography.Text className="song-name">
-                                            {currentSong.item.name ?? 'Play It Safe'}
+                                            {currentSong.name ?? 'Play It Safe'}
                                         </Typography.Text>
                                         <Typography.Text className="song-author">
-                                            {currentSong.item.artists[0].name ?? 'ne igraet'}
+                                            {currentSong.artists[0].name ?? 'ne igraet'}
                                         </Typography.Text>
                                     </Flex>
                                     <div>
@@ -111,7 +113,7 @@ function App() {
                     <Layout>
                         <Content style={mainStyle}>
                             <Routes>
-                                <Route path="/" element={<HomePage usersData={usersData} />} />
+                                <Route path="/" element={<HomePage usersData={usersData} setCurrentSong={setCurrentSong} />} />
                                 <Route path="/search" element={<SearchPage usersData={usersData} />} />
                                 <Route path="/library" element={<LibraryPage usersData={usersData} />} />
                                 <Route path="/liked-songs" element={<LikedSongsPage usersData={usersData} />} />
@@ -119,7 +121,7 @@ function App() {
                         </Content>
                         <Footer style={{ background: '#181818', zIndex: 100 }}>
                             <Flex className="player" justify="space-around" align="center">
-                                <Player/>
+                                <Player song={currentSong}/>
                             </Flex>
                         </Footer>
                     </Layout>

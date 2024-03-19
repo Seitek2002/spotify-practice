@@ -3,14 +3,14 @@ import { getTopTracks } from '../services/spotifyApi';
 import { ITopTracks } from '../types/TopTracks';
 import { Flex, Slider, Typography } from 'antd'
 import { RedoOutlined, StepBackwardFilled, PlayCircleFilled, StepForwardFilled } from '@ant-design/icons'
-// import {  pausePlayback, playResumePlayback } from "../services/spotifyApi"
 
-export default function Player() {
+export default function Player({song}) {
     const [ownTracks, setownTracks] = useState<ITopTracks | null>(null);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [musicValue, setMusicValue] = useState<number>(0);
     const [volume, setVolume] = useState<number>(100);
+    const previewUrl = useRef(null)
 
     const getData = async () => {
         const hash = window.location.hash;
@@ -24,13 +24,18 @@ export default function Player() {
         getData();
     }, []);
 
+    useEffect(() => {
+        if(song){
+            previewUrl.current = song.preview_url
+        }
+    },[song])
+
     const audioRef = useRef(new Audio());
 
     useEffect(() => {
         const audio = audioRef.current;
-        if (audio && ownTracks && ownTracks.items && ownTracks.items.length > 0) {
-            const previewUrl = ownTracks.items[0].preview_url;
-            audio.src = previewUrl;
+        if (previewUrl.current && audio && ownTracks && ownTracks.items && ownTracks.items.length > 0) {
+            audio.src = song.preview_url;
             audio.volume = volume / 100;
             audio.addEventListener('loadedmetadata', () => {
                 setDuration(audio.duration);
@@ -45,7 +50,7 @@ export default function Player() {
                 audio.currentTime = 0; 
             });
         }
-    }, [ownTracks]);
+    }, [ownTracks, song]);
 
     const playMusic = () => {
         audioRef.current.play()
@@ -80,11 +85,9 @@ export default function Player() {
                         />
                     </svg>
                     <StepBackwardFilled
-                        // onClick={playResumePlayback}
                         style={{ color: '#d1d1d1', fontSize: '32px', cursor: 'pointer' }}
                     />
                     <PlayCircleFilled
-                        // onClick={pausePlayback}
                         onClick={playMusic}
                         style={{ color: '#fff', fontSize: '32px', cursor: 'pointer' }}
                     />

@@ -5,7 +5,7 @@ import { ITopTracks } from '../../types/TopTracks'
 import { getRecommendations, getTopTracks } from '../../services/spotifyApi'
 import { IRecommendation } from '../../types/Reccomandation'
 
-const Home = () => {
+const Home = ({setSong}) => {
 
     const [topTracks, setTopTracks] = React.useState<ITopTracks | null>(null)
     const [recommendationTracks, setRecommendationTracks] = React.useState<IRecommendation | null>(null)
@@ -89,7 +89,7 @@ const Home = () => {
                     </Link>
                 </Flex>
                 <Flex justify="space-between">
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(topTracks?topTracks.items[0]:null)}>
                         <img src={topTracks?topTracks.items[0].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {topTracks?topTracks.items[0].name:"Chill mixer"}
@@ -98,7 +98,7 @@ const Home = () => {
                             {topTracks?topTracks.items[0].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(topTracks?topTracks.items[1]:null)}>
                     <img src={topTracks?topTracks.items[1].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {topTracks?topTracks.items[1].name:"Chill mixer"}
@@ -107,7 +107,7 @@ const Home = () => {
                             {topTracks?topTracks.items[1].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(topTracks?topTracks.items[2]:null)}>
                     <img src={topTracks?topTracks.items[2].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {topTracks?topTracks.items[2].name:"Chill mixer"}
@@ -116,7 +116,7 @@ const Home = () => {
                             {topTracks?topTracks.items[2].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(topTracks?topTracks.items[3]:null)}>
                     <img src={topTracks?topTracks.items[3].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {topTracks?topTracks.items[3].name:"Chill mixer"}
@@ -135,7 +135,7 @@ const Home = () => {
                     </Link>
                 </Flex>
                 <Flex justify="space-between">
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(recommendationTracks?recommendationTracks.tracks[0]:null)}>
                         <img src={recommendationTracks?recommendationTracks.tracks[0].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {recommendationTracks?recommendationTracks.tracks[0].name:"Chill mixer"}
@@ -144,7 +144,7 @@ const Home = () => {
                             {recommendationTracks?recommendationTracks.tracks[0].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(recommendationTracks?recommendationTracks.tracks[1]:null)}>
                         <img src={recommendationTracks?recommendationTracks.tracks[1].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {recommendationTracks?recommendationTracks.tracks[1].name:"Chill mixer"}
@@ -153,7 +153,7 @@ const Home = () => {
                             {recommendationTracks?recommendationTracks.tracks[1].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(recommendationTracks?recommendationTracks.tracks[2]:null)}>
                         <img src={recommendationTracks?recommendationTracks.tracks[2].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {recommendationTracks?recommendationTracks.tracks[2].name:"Chill mixer"}
@@ -162,7 +162,7 @@ const Home = () => {
                             {recommendationTracks?recommendationTracks.tracks[2].artists[0].name:"Julia Wolf, Khalid, ayokay and more"}
                         </Typography.Text>
                     </Card>
-                    <Card style={rowCards}>
+                    <Card style={rowCards} onClick={() => setSong(recommendationTracks?recommendationTracks.tracks[3]:null)}>
                         <img src={recommendationTracks?recommendationTracks.tracks[3].album.images[1].url:"/assets/img/cards-img-example.png"} height={182} alt="" />
                         <Typography.Title level={3} style={{ color: '#fff', fontWeight: '700' }}>
                             {recommendationTracks?recommendationTracks.tracks[3].name:"Chill mixer"}
